@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yjz.group.infrastructure.persistent.dao.GroupBuyActivityDao">
+
+    <!-- 结果映射定义 -->
+    <resultMap id="groupBuyActivityResultMap" type="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivityPO">
+        <id property="id" column="id" />
+        <result property="activityId" column="activity_id" />
+        <result property="source" column="source" />
+        <result property="channel" column="channel" />
+        <result property="goodsId" column="goods_id" />
+        <result property="discountId" column="discount_id" />
+        <result property="groupType" column="group_type" />
+        <result property="takeLimitCount" column="take_limit_count" />
+        <result property="target" column="target" />
+        <result property="validTime" column="valid_time" />
+        <result property="status" column="status" />
+        <result property="startTime" column="start_time" />
+        <result property="endTime" column="end_time" />
+        <result property="tagId" column="tag_id" />
+        <result property="tagScope" column="tag_scope" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <!-- 插入拼团活动 -->
+    <insert id="insertGroupBuyActivity" parameterType="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivityPO"  >
+        INSERT INTO group_buy_activity (activity_id, source, channel, goods_id, discount_id,
+                                        group_type, take_limit_count, target, valid_time,
+                                        status, start_time, end_time, tag_id, tag_scope,
+                                        create_time, update_time)
+        VALUES (#{activityId}, #{source}, #{channel}, #{goodsId}, #{discountId},
+                #{groupType}, #{takeLimitCount}, #{target}, #{validTime},
+                #{status}, #{startTime}, #{endTime}, #{tagId}, #{tagScope},
+                now(), now())
+    </insert>
+
+    <!-- 根据ID删除拼团活动 -->
+    <delete id="deleteGroupBuyActivityById" parameterType="long">
+        DELETE FROM group_buy_activity WHERE activity_id = #{activityId}
+    </delete>
+
+    <!-- 更新拼团活动 -->
+    <update id="updateGroupBuyActivity" parameterType="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivityPO">
+        UPDATE group_buy_activity
+        SET source = #{source},
+            channel = #{channel},
+            goods_id = #{goodsId},
+            discount_id = #{discountId},
+            group_type = #{groupType},
+            take_limit_count = #{takeLimitCount},
+            target = #{target},
+            valid_time = #{validTime},
+            status = #{status},
+            start_time = #{startTime},
+            end_time = #{endTime},
+            tag_id = #{tagId},
+            tag_scope = #{tagScope},
+            update_time = now()
+        WHERE activity_id = #{activityId}
+    </update>
+
+    <!-- 根据ID查询拼团活动 -->
+    <select id="selectGroupBuyActivityById" parameterType="long" resultMap="groupBuyActivityResultMap">
+        SELECT * FROM group_buy_activity WHERE id = #{id}
+    </select>
+
+    <!-- 查询所有拼团活动 -->
+    <select id="selectAllGroupBuyActivities" resultMap="groupBuyActivityResultMap">
+        SELECT * FROM group_buy_activity
+    </select>
+
+    <!-- 根据活动状态查询拼团活动 -->
+    <select id="selectGroupBuyActivitiesByStatus" parameterType="int" resultMap="groupBuyActivityResultMap">
+        SELECT * FROM group_buy_activity WHERE status = #{status}
+    </select>
+
+</mapper>

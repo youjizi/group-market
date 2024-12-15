@@ -9,11 +9,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @create 2023-09-03 16:51
  */
 @Data
-//@ConfigurationProperties(prefix = "redis.sdk.config", ignoreInvalidFields = true)
+@ConfigurationProperties(prefix = "redis.sdk.config", ignoreInvalidFields = true)
 public class RedisClientConfigProperties {
 
-    /** 是否启用 */
-    private boolean enabled = true;
+
     /** host:ip */
     private String host;
     /** 端口 */
