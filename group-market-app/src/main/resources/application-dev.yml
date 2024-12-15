@@ -39,7 +39,7 @@ mybatis:
 redis:
   sdk:
     config:
-      host: www.libai.tech
+      host: libai.tech
       port: 6379
       password: 123456
       pool-size: 10

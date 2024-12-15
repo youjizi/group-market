@@ -16,6 +16,7 @@ public class Constants {
         SUCCESS("0000", "成功"),
         UN_ERROR("0001", "未知失败"),
         ILLEGAL_PARAMETER("0002", "非法参数"),
+        ACTIVITY_NODE_ERROR("0003", "活动节点异常"),
         ;
 
         private String code;
