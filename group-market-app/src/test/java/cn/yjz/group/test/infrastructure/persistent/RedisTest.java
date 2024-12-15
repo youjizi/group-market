@@ -1,6 +1,7 @@
 package cn.yjz.group.test.infrastructure.persistent;
 
 import cn.yjz.group.infrastructure.redis.IRedisService;
+import cn.yjz.group.infrastructure.redis.RedissonService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,7 @@ import javax.annotation.Resource;
 public class RedisTest {
 
     @Resource
-    private IRedisService redissonService;
+    private RedissonService redissonService;
 
     @Test
     public void test_setValue() {
