@@ -2,31 +2,32 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.yjz.group.infrastructure.persistent.dao.GroupBuyActivityDao">
+<mapper namespace="cn.yjz.group.infrastructure.persistent.dao.IGroupBuyActivityDao">
 
     <!-- 结果映射定义 -->
-    <resultMap id="groupBuyActivityResultMap" type="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivityPO">
-        <id property="id" column="id" />
-        <result property="activityId" column="activity_id" />
-        <result property="source" column="source" />
-        <result property="channel" column="channel" />
-        <result property="goodsId" column="goods_id" />
-        <result property="discountId" column="discount_id" />
-        <result property="groupType" column="group_type" />
-        <result property="takeLimitCount" column="take_limit_count" />
-        <result property="target" column="target" />
-        <result property="validTime" column="valid_time" />
-        <result property="status" column="status" />
-        <result property="startTime" column="start_time" />
-        <result property="endTime" column="end_time" />
-        <result property="tagId" column="tag_id" />
-        <result property="tagScope" column="tag_scope" />
-        <result property="createTime" column="create_time" />
-        <result property="updateTime" column="update_time" />
+    <resultMap id="groupBuyActivityResultMap" type="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivity">
+        <id column="id" property="id"/>
+        <result column="activity_id" property="activityId"/>
+        <result column="activity_name" property="activityName"/>
+        <result column="source" property="source"/>
+        <result column="channel" property="channel"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="discount_id" property="discountId"/>
+        <result column="group_type" property="groupType"/>
+        <result column="take_limit_count" property="takeLimitCount"/>
+        <result column="target" property="target"/>
+        <result column="valid_time" property="validTime"/>
+        <result column="status" property="status"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="tag_id" property="tagId"/>
+        <result column="tag_scope" property="tagScope"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <!-- 插入拼团活动 -->
-    <insert id="insertGroupBuyActivity" parameterType="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivityPO"  >
+    <insert id="insertGroupBuyActivity" parameterType="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivity"  >
         INSERT INTO group_buy_activity (activity_id, source, channel, goods_id, discount_id,
                                         group_type, take_limit_count, target, valid_time,
                                         status, start_time, end_time, tag_id, tag_scope,
@@ -43,7 +44,7 @@
     </delete>
 
     <!-- 更新拼团活动 -->
-    <update id="updateGroupBuyActivity" parameterType="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivityPO">
+    <update id="updateGroupBuyActivity" parameterType="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivity">
         UPDATE group_buy_activity
         SET source = #{source},
             channel = #{channel},
@@ -75,6 +76,18 @@
     <!-- 根据活动状态查询拼团活动 -->
     <select id="selectGroupBuyActivitiesByStatus" parameterType="int" resultMap="groupBuyActivityResultMap">
         SELECT * FROM group_buy_activity WHERE status = #{status}
+    </select>
+
+
+    <select id="queryValidGroupBuyActivity" parameterType="cn.yjz.group.infrastructure.persistent.po.GroupBuyActivity" resultMap="groupBuyActivityResultMap">
+        select
+            activity_id, activity_name, source, channel, goods_id,
+            discount_id, group_type, take_limit_count, target, valid_time,
+            status, start_time, end_time, tag_id, tag_scope
+        from group_buy_activity
+        where source = #{source} and channel = #{channel}
+        order by id desc
+            limit 1
     </select>
 
 </mapper>

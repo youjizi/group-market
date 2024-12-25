@@ -16,13 +16,16 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
-public class GroupBuyActivityPO {
+public class GroupBuyActivity {
 
     /** 自增ID */
     private Long id;
 
     /** 活动ID */
     private Long activityId;
+
+    /** 活动名称 */
+    private String activityName;
 
     /** 来源 */
     private String source;
@@ -46,7 +49,7 @@ public class GroupBuyActivityPO {
     private Integer target;
 
     /** 拼团时长【有效时间、10分钟、30分钟】 */
-    private Date validTime;
+    private Integer validTime;
 
     /** 活动状态【0 开始 1 未开始】 */
     private Integer status;
