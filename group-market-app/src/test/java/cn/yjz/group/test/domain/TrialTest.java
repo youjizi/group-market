@@ -5,6 +5,7 @@ import cn.yjz.group.domain.activity.model.entity.TrialBalanceEntity;
 import cn.yjz.group.domain.activity.service.IIndexGroupBuyMarketService;
 import cn.yjz.group.domain.activity.service.trial.factory.DefaultActivityStrategyFactory;
 import cn.yjz.group.types.design.framework.tree.StrategyHandler;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,19 +30,18 @@ public class TrialTest {
     IIndexGroupBuyMarketService service;
 
     @Test
-    public void testNode() {
+    public void testNode() throws Exception {
 
 
-        MarketProductEntity marketProductEntity = MarketProductEntity.builder().userId("1").goodsId("2").source("3").channel("4").build();
+        MarketProductEntity marketProductEntity = new MarketProductEntity();
+        marketProductEntity.setUserId("xiaofuge");
+        marketProductEntity.setSource("s01");
+        marketProductEntity.setChannel("c01");
+        marketProductEntity.setGoodsId("9890001");
 
-
-
-        try {
-            service.indexMarketTrial(marketProductEntity);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        TrialBalanceEntity trialBalanceEntity = service.indexMarketTrial(marketProductEntity);
+        log.info("请求参数:{}", JSON.toJSONString(marketProductEntity));
+        log.info("返回结果:{}", JSON.toJSONString(trialBalanceEntity));
 
     }
 }

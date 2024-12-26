@@ -2,20 +2,15 @@ package cn.yjz.group.domain.activity.service.trial.factory;
 
 import cn.yjz.group.domain.activity.model.entity.MarketProductEntity;
 import cn.yjz.group.domain.activity.model.entity.TrialBalanceEntity;
-import cn.yjz.group.domain.activity.service.INode;
-import cn.yjz.group.domain.activity.service.trial.AbstractGroupBuyMarketSupport;
+import cn.yjz.group.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import cn.yjz.group.domain.activity.model.valobj.SkuVO;
 import cn.yjz.group.domain.activity.service.trial.node.RootNode;
-import cn.yjz.group.types.common.Constants;
 import cn.yjz.group.types.design.framework.tree.StrategyHandler;
-import cn.yjz.group.types.exception.AppException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author 李白
@@ -29,27 +24,14 @@ public class DefaultActivityStrategyFactory {
 
     private final RootNode rootNode;
 
-    private static final ConcurrentHashMap<String,  INode> strategyHandlerMap  = new ConcurrentHashMap<>() ;
-
-    public DefaultActivityStrategyFactory(Map<String, INode> map) {
-        try {
-            for (String key : map.keySet()) {
-
-                strategyHandlerMap.put(key, map.get(key));
-            }
-            rootNode = (RootNode) strategyHandlerMap.get("rootNode");
-        } catch (Exception e) {
-            throw new AppException(Constants.ResponseCode.ACTIVITY_NODE_ERROR.getCode(), Constants.ResponseCode.ACTIVITY_NODE_ERROR.getInfo(), e);
-        }
-
+    public DefaultActivityStrategyFactory(RootNode rootNode) {
+        this.rootNode = rootNode;
     }
 
     public StrategyHandler<MarketProductEntity, DynamicContext, TrialBalanceEntity>  startStrategyHandler() {
         return rootNode;
     }
-    public static StrategyHandler<MarketProductEntity, DynamicContext, TrialBalanceEntity>  nextStrategyHandler(String nextNode) {
-        return (StrategyHandler<MarketProductEntity, DynamicContext, TrialBalanceEntity>) strategyHandlerMap.get(nextNode);
-    }
+
 
     @Data
     @Builder
@@ -57,7 +39,10 @@ public class DefaultActivityStrategyFactory {
     @NoArgsConstructor
     public static class DynamicContext {
 
-        private String nextNode;
+        // 拼团活动营销配置值对象
+        private GroupBuyActivityDiscountVO groupBuyActivityDiscountVO;
+        // 商品信息
+        private SkuVO skuVO;
     }
 
 }
