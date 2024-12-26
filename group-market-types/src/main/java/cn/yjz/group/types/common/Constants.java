@@ -17,6 +17,7 @@ public class Constants {
         UN_ERROR("0001", "未知失败"),
         ILLEGAL_PARAMETER("0002", "非法参数"),
         ACTIVITY_NODE_ERROR("0003", "活动节点异常"),
+        E0001("E0001", "不存在对应的折扣计算服务"),
         ;
 
         private String code;
