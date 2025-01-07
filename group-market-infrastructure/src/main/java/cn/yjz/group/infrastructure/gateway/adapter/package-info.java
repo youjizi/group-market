@@ -1,1 +1,0 @@
-package cn.yjz.group.infrastructure.gateway.adapter;
