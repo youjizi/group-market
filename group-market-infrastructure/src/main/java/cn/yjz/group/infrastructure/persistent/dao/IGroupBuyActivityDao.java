@@ -56,8 +56,12 @@ public interface IGroupBuyActivityDao {
      */
     List<GroupBuyActivity> selectGroupBuyActivitiesByStatus(Integer status);
 
-
-    GroupBuyActivity queryValidGroupBuyActivity(GroupBuyActivity groupBuyActivityReq);
+    /**
+     * 根据ID查询 已经开启拼团活动
+     * @param activityId 拼团活动ID
+     * @return 拼团活动对象
+     */
+    GroupBuyActivity queryValidGroupBuyActivityId(Long activityId );
 
 
 }

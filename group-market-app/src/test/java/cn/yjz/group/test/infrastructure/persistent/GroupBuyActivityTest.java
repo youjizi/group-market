@@ -30,9 +30,6 @@ public class GroupBuyActivityTest {
 
         GroupBuyActivity groupBuyActivity = new GroupBuyActivity();
         groupBuyActivity.setActivityId(1001L); // 活动ID
-        groupBuyActivity.setSource("sourceA"); // 来源
-        groupBuyActivity.setChannel("channelB"); // 渠道
-        groupBuyActivity.setGoodsId("goods123"); // 商品ID
         groupBuyActivity.setDiscountId("123"); // 折扣ID
         groupBuyActivity.setGroupType(1); // 拼团方式【0自动成团、1达成目标成团】
         groupBuyActivity.setTakeLimitCount(3); // 参与次数限制
@@ -63,9 +60,6 @@ public class GroupBuyActivityTest {
 
         GroupBuyActivity groupBuyActivity = new GroupBuyActivity();
         groupBuyActivity.setActivityId(1001L); // 活动ID
-        groupBuyActivity.setSource("sourceA"); // 来源
-        groupBuyActivity.setChannel("channelB"); // 渠道
-        groupBuyActivity.setGoodsId("goods123"); // 商品ID
         groupBuyActivity.setDiscountId("1234"); // 折扣ID
         groupBuyActivity.setGroupType(1); // 拼团方式【0自动成团、1达成目标成团】
         groupBuyActivity.setTakeLimitCount(3); // 参与次数限制

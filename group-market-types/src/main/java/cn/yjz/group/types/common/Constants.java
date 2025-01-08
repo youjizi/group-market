@@ -18,6 +18,7 @@ public class Constants {
         ILLEGAL_PARAMETER("0002", "非法参数"),
         ACTIVITY_NODE_ERROR("0003", "活动节点异常"),
         E0001("E0001", "不存在对应的折扣计算服务"),
+        E0002("E0002", "活动配置不存在"),
         ;
 
         private String code;
