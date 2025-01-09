@@ -8,6 +8,8 @@ import cn.yjz.group.domain.activity.model.valobj.SCSkuActivityVO;
 import cn.yjz.group.domain.activity.model.valobj.SkuVO;
 import cn.yjz.group.infrastructure.persistent.dao.*;
 import cn.yjz.group.infrastructure.persistent.po.*;
+import cn.yjz.group.infrastructure.redis.IRedisService;
+import org.redisson.api.RBitSet;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -33,6 +35,9 @@ public class ActivityRepository implements IActivityRepository {
 
     @Resource
     private ISkuDao skuDao;
+
+    @Resource
+    private IRedisService redisService;
 
     @Override
     public GroupBuyActivityDiscountVO queryGroupBuyActivityDiscountVO(Long activityId) {
@@ -109,15 +114,21 @@ public class ActivityRepository implements IActivityRepository {
     @Override
     public boolean isTagCrowdRange(String tagId, String userId) {
 
-        CrowdTagsDetail crowdTagsDetail1 = new CrowdTagsDetail();
-        crowdTagsDetail1.setTagId(tagId);
-        crowdTagsDetail1.setUserId(userId);
 
-        CrowdTagsDetail crowdTagsDetail = crowdTagsDetailDao.queryCrowdTagsByUserId(crowdTagsDetail1);
-        if (null == crowdTagsDetail) {
-            return false;
-        }
-        return true;
+        RBitSet bitSet = redisService.getBitSet(tagId);
+        if(!bitSet.isExists()) return false;
+        return bitSet.get(redisService.getIndexFromUserId(userId));
+
+
+//        CrowdTagsDetail crowdTagsDetail1 = new CrowdTagsDetail();
+//        crowdTagsDetail1.setTagId(tagId);
+//        crowdTagsDetail1.setUserId(userId);
+//
+//        CrowdTagsDetail crowdTagsDetail = crowdTagsDetailDao.queryCrowdTagsByUserId(crowdTagsDetail1);
+//        if (null == crowdTagsDetail) {
+//            return false;
+//        }
+//        return true;
     }
 
 }
