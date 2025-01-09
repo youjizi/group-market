@@ -6,14 +6,8 @@ import cn.yjz.group.domain.activity.model.valobj.DiscountTypeEnum;
 import cn.yjz.group.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import cn.yjz.group.domain.activity.model.valobj.SCSkuActivityVO;
 import cn.yjz.group.domain.activity.model.valobj.SkuVO;
-import cn.yjz.group.infrastructure.persistent.dao.IGroupBuyActivityDao;
-import cn.yjz.group.infrastructure.persistent.dao.IGroupBuyDiscountDao;
-import cn.yjz.group.infrastructure.persistent.dao.ISCSkuActivityDao;
-import cn.yjz.group.infrastructure.persistent.dao.ISkuDao;
-import cn.yjz.group.infrastructure.persistent.po.GroupBuyActivity;
-import cn.yjz.group.infrastructure.persistent.po.GroupBuyDiscount;
-import cn.yjz.group.infrastructure.persistent.po.SCSkuActivity;
-import cn.yjz.group.infrastructure.persistent.po.Sku;
+import cn.yjz.group.infrastructure.persistent.dao.*;
+import cn.yjz.group.infrastructure.persistent.po.*;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -33,6 +27,9 @@ public class ActivityRepository implements IActivityRepository {
 
     @Resource
     private ISCSkuActivityDao scSkuActivityDao;
+
+    @Resource
+    private ICrowdTagsDetailDao crowdTagsDetailDao;
 
     @Resource
     private ISkuDao skuDao;
@@ -107,6 +104,20 @@ public class ActivityRepository implements IActivityRepository {
                 .goodsId(scSkuActivity.getGoodsId())
                 .build();
 
+    }
+
+    @Override
+    public boolean isTagCrowdRange(String tagId, String userId) {
+
+        CrowdTagsDetail crowdTagsDetail1 = new CrowdTagsDetail();
+        crowdTagsDetail1.setTagId(tagId);
+        crowdTagsDetail1.setUserId(userId);
+
+        CrowdTagsDetail crowdTagsDetail = crowdTagsDetailDao.queryCrowdTagsByUserId(crowdTagsDetail1);
+        if (null == crowdTagsDetail) {
+            return false;
+        }
+        return true;
     }
 
 }

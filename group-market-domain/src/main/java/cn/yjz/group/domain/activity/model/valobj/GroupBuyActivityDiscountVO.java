@@ -1,11 +1,14 @@
 package cn.yjz.group.domain.activity.model.valobj;
 
+import cn.yjz.group.types.common.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Fuzhengwei bugstack.cn @小傅哥
@@ -78,6 +81,32 @@ public class GroupBuyActivityDiscountVO {
      * 人群标签规则范围
      */
     private String tagScope;
+
+    /**
+     * 可见限制
+     * 只要存在这样一个值，那么首次获得的默认值就是 false
+     */
+    public boolean isVisible() {
+        String[] split = this.tagScope.split(Constants.SPLIT);
+        if (split.length > 0 && Objects.equals(split[0], "1") && StringUtils.isNotBlank(split[0])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 参与限制
+     * 只要存在这样一个值，那么首次获得的默认值就是 false
+     */
+    public boolean isEnable() {
+        String[] split = this.tagScope.split(Constants.SPLIT);
+        if (split.length == 2 && Objects.equals(split[1], "2") && StringUtils.isNotBlank(split[1])) {
+            return false;
+        }
+        return true;
+    }
+
+
 
     @Getter
     @Builder

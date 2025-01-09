@@ -14,4 +14,5 @@ public interface ICrowdTagsDetailDao {
 
     void addCrowdTagsUserId(CrowdTagsDetail crowdTagsDetailReq);
 
+    CrowdTagsDetail queryCrowdTagsByUserId(CrowdTagsDetail crowdTagsDetailReq);
 }
