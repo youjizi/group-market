@@ -34,7 +34,7 @@ public class TrialTest {
 
 
         MarketProductEntity marketProductEntity = new MarketProductEntity();
-        marketProductEntity.setUserId("lhh");
+        marketProductEntity.setUserId("李黑哦");
         marketProductEntity.setSource("s01");
         marketProductEntity.setChannel("c01");
         marketProductEntity.setGoodsId("9890001");

@@ -28,6 +28,9 @@ public class TagNode extends AbstractGroupBuyMarketSupport<MarketProductEntity, 
     @Resource
     private EndNode endNode;
 
+    @Resource
+    private MarketNode marketNode;
+
     @Override
     protected TrialBalanceEntity doApply(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
         log.info("拼团商品查询试算服务-TagNode userId:{} requestParameter:{}", requestParameter.getUserId(), JSON.toJSONString(requestParameter));
@@ -54,6 +57,9 @@ public class TagNode extends AbstractGroupBuyMarketSupport<MarketProductEntity, 
 
     @Override
     public StrategyHandler<MarketProductEntity, DefaultActivityStrategyFactory.DynamicContext, TrialBalanceEntity> get(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
+        if (dynamicContext.isVisible()) {
+            return marketNode;
+        }
         return endNode;
     }
 }
